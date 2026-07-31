@@ -16,7 +16,6 @@ import {
   Check,
   ChevronDown,
   ChevronUp,
-  History,
   FileX,
 } from 'lucide-react';
 import { TypeScriptModal } from '../modals/TypeScriptModal';
@@ -40,6 +39,7 @@ export const Toolbar: React.FC = () => {
     setActiveSearchIndex,
     rawText,
     parsedData,
+    showHistoryModal,
     setShowHistoryModal,
     clearToEmptyState,
   } = useJSON();
@@ -84,7 +84,7 @@ export const Toolbar: React.FC = () => {
       // Ctrl+H / Cmd+H -> Toggle History Modal
       if (ctrlOrCmd && !e.altKey && !e.shiftKey && e.code === 'KeyH') {
         e.preventDefault();
-        setShowHistoryModal((prev) => !prev);
+        setShowHistoryModal(!showHistoryModal);
         return;
       }
 
@@ -128,7 +128,7 @@ export const Toolbar: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [setViewMode, formatJson, minifyJson, rawText, clearToEmptyState, setShowHistoryModal]);
+  }, [setViewMode, formatJson, minifyJson, rawText, clearToEmptyState, showHistoryModal, setShowHistoryModal]);
 
   // Helper component to render 3 distinct key caps with enlarged, legible icons
   const renderAltShiftKeyCaps = (keyChar: string) => (

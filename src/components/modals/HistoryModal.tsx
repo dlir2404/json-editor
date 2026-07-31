@@ -1,6 +1,6 @@
 import React from 'react';
 import { useJSON } from '../../context/JSONContext';
-import { X, History, Trash2, Clock, FileCode, Check } from 'lucide-react';
+import { X, History, Trash2, Clock, FileCode } from 'lucide-react';
 import { HistoryRecord } from '../../utils/historyStorage';
 
 export const HistoryModal: React.FC = () => {
