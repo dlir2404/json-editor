@@ -130,21 +130,6 @@ export const Toolbar: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [setViewMode, formatJson, minifyJson, rawText, clearToEmptyState, showHistoryModal, setShowHistoryModal]);
 
-  // Helper component to render 3 distinct key caps with enlarged, legible icons
-  const renderAltShiftKeyCaps = (keyChar: string) => (
-    <span className="inline-flex items-center gap-1 ml-1.5 align-middle">
-      <kbd className="text-[13px] leading-none font-mono font-bold text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 shadow-2xs">
-        ⌥
-      </kbd>
-      <kbd className="text-[13px] leading-none font-mono font-bold text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 shadow-2xs">
-        ⇧
-      </kbd>
-      <kbd className="text-[13px] leading-none font-mono font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-950 px-2 py-0.5 rounded border border-indigo-300 dark:border-indigo-800 shadow-2xs">
-        {keyChar}
-      </kbd>
-    </span>
-  );
-
   return (
     <>
       <div className="h-12 bg-slate-50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800 px-3 flex items-center justify-between gap-2 overflow-x-auto whitespace-nowrap scrollbar-none">
@@ -163,7 +148,6 @@ export const Toolbar: React.FC = () => {
             >
               <Columns className="w-4 h-4" />
               <span>Split</span>
-              {renderAltShiftKeyCaps('J')}
             </button>
 
             <button
@@ -177,7 +161,6 @@ export const Toolbar: React.FC = () => {
             >
               <FolderTree className="w-4 h-4" />
               <span>Tree</span>
-              {renderAltShiftKeyCaps('K')}
             </button>
 
             <button
@@ -191,7 +174,6 @@ export const Toolbar: React.FC = () => {
             >
               <Code className="w-4 h-4" />
               <span>Code</span>
-              {renderAltShiftKeyCaps('L')}
             </button>
           </div>
 
@@ -228,7 +210,7 @@ export const Toolbar: React.FC = () => {
               placeholder="Search (Ctrl/⌘ + F)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-7 pr-20 py-1 text-xs bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 font-mono"
+              className="w-full pl-7 pr-3 py-1 text-xs bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 font-mono"
             />
 
             {searchResults.length > 0 ? (
@@ -243,16 +225,7 @@ export const Toolbar: React.FC = () => {
                   <ChevronDown className="w-3 h-3" />
                 </button>
               </div>
-            ) : (
-              <span className="absolute right-1.5 inline-flex items-center gap-1 pointer-events-none">
-                <kbd className="text-[12px] leading-none font-mono font-bold text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 shadow-2xs">
-                  ⌘
-                </kbd>
-                <kbd className="text-[12px] leading-none font-mono font-bold text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 shadow-2xs">
-                  F
-                </kbd>
-              </span>
-            )}
+) : null}
           </div>
         </div>
 
@@ -265,17 +238,6 @@ export const Toolbar: React.FC = () => {
           >
             <FileX className="w-4 h-4" />
             <span>Clear</span>
-            <span className="inline-flex items-center gap-1 ml-1">
-              <kbd className="text-[13px] leading-none font-mono font-bold text-rose-700 dark:text-rose-200 bg-rose-100 dark:bg-rose-900/80 px-1.5 py-0.5 rounded border border-rose-300 dark:border-rose-700 shadow-2xs">
-                ⌥
-              </kbd>
-              <kbd className="text-[13px] leading-none font-mono font-bold text-rose-700 dark:text-rose-200 bg-rose-100 dark:bg-rose-900/80 px-1.5 py-0.5 rounded border border-rose-300 dark:border-rose-700 shadow-2xs">
-                ⇧
-              </kbd>
-              <kbd className="text-[13px] leading-none font-mono font-bold text-rose-700 dark:text-rose-200 bg-rose-100 dark:bg-rose-900/80 px-2 py-0.5 rounded border border-rose-300 dark:border-rose-700 shadow-2xs">
-                X
-              </kbd>
-            </span>
           </button>
 
           <button
@@ -285,7 +247,6 @@ export const Toolbar: React.FC = () => {
           >
             <FileCode className="w-4 h-4 text-emerald-500" />
             <span>Format</span>
-            {renderAltShiftKeyCaps('F')}
           </button>
 
           <button
@@ -295,7 +256,6 @@ export const Toolbar: React.FC = () => {
           >
             <Minimize2 className="w-4 h-4 text-amber-500" />
             <span>Minify</span>
-            {renderAltShiftKeyCaps('M')}
           </button>
 
           <button
@@ -305,7 +265,6 @@ export const Toolbar: React.FC = () => {
           >
             {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-cyan-500" />}
             <span>{copied ? 'Copied!' : 'Copy'}</span>
-            {renderAltShiftKeyCaps('C')}
           </button>
 
           <button
@@ -315,7 +274,6 @@ export const Toolbar: React.FC = () => {
           >
             <Code2 className="w-4 h-4 text-indigo-500" />
             <span>TS Types</span>
-            {renderAltShiftKeyCaps('T')}
           </button>
 
           <button
@@ -324,7 +282,6 @@ export const Toolbar: React.FC = () => {
             className="p-1.5 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors inline-flex items-center gap-1"
           >
             <Upload className="w-4 h-4 text-purple-500" />
-            {renderAltShiftKeyCaps('I')}
           </button>
 
           <button
@@ -333,7 +290,6 @@ export const Toolbar: React.FC = () => {
             className="p-1.5 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors inline-flex items-center gap-1"
           >
             <Download className="w-4 h-4 text-blue-500" />
-            {renderAltShiftKeyCaps('E')}
           </button>
         </div>
       </div>

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useJSON } from '../../context/JSONContext';
 import { SAMPLE_PRESETS } from '../../utils/sampleData';
-import { Sun, Moon, Database, Braces, Code2 } from 'lucide-react';
+import { Sun, Moon, Database, Braces, Code2, Settings } from 'lucide-react';
+import { SettingsModal } from '../modals/SettingsModal';
 
 export const Header: React.FC = () => {
   const { theme, toggleTheme, loadPresetData } = useJSON();
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   return (
-    <header className="h-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 flex items-center justify-between shadow-xs">
+    <>
+      <header className="h-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 flex items-center justify-between shadow-xs">
       {/* Brand & Distinctive JSON Editor Logo */}
       <div className="flex items-center gap-3">
         <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/25 ring-1 ring-white/20">
@@ -53,6 +56,16 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
+        <button
+          type="button"
+          onClick={() => setShowSettingsModal(true)}
+          title="Settings"
+          aria-label="Open settings"
+          className="p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 rounded-lg transition-colors border border-slate-200 dark:border-slate-700"
+        >
+          <Settings className="w-4 h-4" />
+        </button>
+
         {/* Dark / Light Toggle */}
         <button
           onClick={toggleTheme}
@@ -62,6 +75,9 @@ export const Header: React.FC = () => {
           {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
         </button>
       </div>
-    </header>
+      </header>
+
+      {showSettingsModal && <SettingsModal onClose={() => setShowSettingsModal(false)} />}
+    </>
   );
 };
