@@ -13,12 +13,14 @@ import {
   Download,
   Upload,
   Code2,
+  FileJson,
   Check,
   ChevronDown,
   ChevronUp,
   FileX,
 } from 'lucide-react';
 import { TypeScriptModal } from '../modals/TypeScriptModal';
+import { JsonSchemaModal } from '../modals/JsonSchemaModal';
 import { ExportModal } from '../modals/ExportModal';
 import { ImportModal } from '../modals/ImportModal';
 
@@ -46,6 +48,7 @@ export const Toolbar: React.FC = () => {
 
   const [copied, setCopied] = useState(false);
   const [showTsModal, setShowTsModal] = useState(false);
+  const [showJsonSchemaModal, setShowJsonSchemaModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
 
@@ -113,6 +116,9 @@ export const Toolbar: React.FC = () => {
         } else if (code === 'KeyT') {
           e.preventDefault();
           setShowTsModal((prev) => !prev);
+        } else if (code === 'KeyS') {
+          e.preventDefault();
+          setShowJsonSchemaModal((prev) => !prev);
         } else if (code === 'KeyI') {
           e.preventDefault();
           setShowImportModal((prev) => !prev);
@@ -277,6 +283,15 @@ export const Toolbar: React.FC = () => {
           </button>
 
           <button
+            onClick={() => setShowJsonSchemaModal(true)}
+            title="JSON Schema Generator (Alt/⌥ + Shift + S)"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors"
+          >
+            <FileJson className="w-4 h-4 text-emerald-500" />
+            <span>JSON Schema</span>
+          </button>
+
+          <button
             onClick={() => setShowImportModal(true)}
             title="Import File (Alt/⌥ + Shift + I)"
             className="p-1.5 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors inline-flex items-center gap-1"
@@ -296,6 +311,7 @@ export const Toolbar: React.FC = () => {
 
       {/* Modals */}
       {showTsModal && <TypeScriptModal data={parsedData} onClose={() => setShowTsModal(false)} />}
+      {showJsonSchemaModal && <JsonSchemaModal data={parsedData} onClose={() => setShowJsonSchemaModal(false)} />}
       {showExportModal && <ExportModal data={parsedData} rawText={rawText} onClose={() => setShowExportModal(false)} />}
       {showImportModal && <ImportModal onClose={() => setShowImportModal(false)} />}
     </>

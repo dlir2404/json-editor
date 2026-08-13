@@ -80,6 +80,13 @@ export const SHORTCUTS: ShortcutDefinition[] = [
     windows: ['Alt', 'Shift', 'T'],
   },
   {
+    action: 'Generate JSON Schema',
+    description: 'Infer a JSON Schema from the current document.',
+    category: 'Tools',
+    mac: ['⌥', '⇧', 'S'],
+    windows: ['Alt', 'Shift', 'S'],
+  },
+  {
     action: 'Import',
     description: 'Open the data import dialog.',
     category: 'Tools',
