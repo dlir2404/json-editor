@@ -12,7 +12,7 @@ export const MonacoCodeEditor: React.FC = () => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-slate-900 overflow-hidden">
+    <div className="h-full flex flex-col bg-white dark:bg-slate-900 overflow-hidden">
       <ErrorBanner error={parseError} />
       <div className="flex-1 relative">
         <Editor

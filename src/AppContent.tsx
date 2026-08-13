@@ -32,7 +32,7 @@ export const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-slate-950 text-slate-100 select-none overflow-hidden">
+    <div className="h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 select-none overflow-hidden">
       {/* Full-screen Paste Overlay when state is empty */}
       <EmptyPasteOverlay />
 

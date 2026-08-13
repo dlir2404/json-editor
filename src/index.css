@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Drive Tailwind's dark: utilities from the app's theme class, not OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     --bg-primary: #ffffff;
