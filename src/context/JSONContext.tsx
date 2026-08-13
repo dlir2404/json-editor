@@ -3,6 +3,7 @@ import { Theme, ViewMode, ParseError, JSONStats, SearchMatch } from '../types/js
 import { safeJsonParse, calculateJSONStats, updateValueByPath, updateKeyByPath, deleteNodeByPath, addNodeByPath, duplicateNodeByPath } from '../utils/jsonParser';
 import { useUndoRedo } from '../hooks/useUndoRedo';
 import { HistoryRecord, getHistoryFromStorage, saveHistoryEntry, clearAllHistoryStorage } from '../utils/historyStorage';
+import { getDefaultViewMode, saveDefaultViewMode } from '../utils/settingsStorage';
 
 interface JSONContextType {
   // Primary States
@@ -16,6 +17,8 @@ interface JSONContextType {
   // UI & View States
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
+  defaultViewMode: ViewMode;
+  setDefaultViewMode: (mode: ViewMode) => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
@@ -65,7 +68,8 @@ export const JSONProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Initialize with empty string to trigger paste overlay
   const { state: rawText, set: setRawText, undo, redo, canUndo, canRedo } = useUndoRedo<string>('');
 
-  const [viewMode, setViewMode] = useState<ViewMode>('split');
+  const [defaultViewMode, setDefaultViewModeState] = useState<ViewMode>(getDefaultViewMode);
+  const [viewMode, setViewMode] = useState<ViewMode>(defaultViewMode);
   const [theme, setTheme] = useState<Theme>('dark');
   const [indentation, setIndentation] = useState<2 | 4>(2);
 
@@ -123,6 +127,12 @@ export const JSONProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  }, []);
+
+  const setDefaultViewMode = useCallback((mode: ViewMode) => {
+    setDefaultViewModeState(mode);
+    saveDefaultViewMode(mode);
+    setViewMode(mode);
   }, []);
 
   // Bi-directional state handlers
@@ -253,6 +263,8 @@ export const JSONProvider: React.FC<{ children: React.ReactNode }> = ({ children
       isEmptyState,
       viewMode,
       setViewMode,
+      defaultViewMode,
+      setDefaultViewMode,
       theme,
       setTheme,
       toggleTheme,
@@ -293,6 +305,8 @@ export const JSONProvider: React.FC<{ children: React.ReactNode }> = ({ children
       stats,
       isEmptyState,
       viewMode,
+      defaultViewMode,
+      setDefaultViewMode,
       theme,
       toggleTheme,
       indentation,
