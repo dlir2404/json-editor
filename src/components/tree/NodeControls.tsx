@@ -4,7 +4,7 @@ import { Plus, Copy, Trash2, Link } from 'lucide-react';
 interface NodeControlsProps {
   isContainer: boolean;
   onAddChild?: () => void;
-  onDuplicate: () => void;
+  onCopyValue: () => void;
   onDelete: () => void;
   onCopyPath: () => void;
 }
@@ -12,7 +12,7 @@ interface NodeControlsProps {
 export const NodeControls: React.FC<NodeControlsProps> = ({
   isContainer,
   onAddChild,
-  onDuplicate,
+  onCopyValue,
   onDelete,
   onCopyPath,
 }) => {
@@ -29,8 +29,8 @@ export const NodeControls: React.FC<NodeControlsProps> = ({
       )}
 
       <button
-        onClick={onDuplicate}
-        title="Duplicate Node"
+        onClick={onCopyValue}
+        title="Copy Value"
         className="p-1 text-slate-500 hover:text-indigo-500 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
       >
         <Copy className="w-3 h-3" />

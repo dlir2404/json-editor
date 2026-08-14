@@ -194,11 +194,14 @@ export const JSONNode: React.FC<JSONNodeProps> = ({
         {/* Type Converter Popover */}
         <TypePopover currentType={dataType} onTypeChange={handleTypeChange} />
 
-        {/* Action Controls (+Child, Duplicate, Delete, Copy Path) */}
+        {/* Action Controls (+Child, Copy Value, Delete, Copy Path) */}
         <NodeControls
           isContainer={isContainer}
           onAddChild={() => onAddNode(path)}
-          onDuplicate={() => onDuplicateNode(path)}
+          onCopyValue={() => {
+            const text = isContainer ? JSON.stringify(value, null, 2) : JSON.stringify(value);
+            navigator.clipboard.writeText(text);
+          }}
           onDelete={() => onDeleteNode(path)}
           onCopyPath={() => {
             navigator.clipboard.writeText(jsonPathStr);
